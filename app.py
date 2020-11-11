@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template,request, make_response,flash, redirect, url_for, send_from_directory, session
 import cv2 
 import pytesseract
@@ -16,7 +15,8 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app = Flask(__name__)
 app.secret_key = "super secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.run(host='0.0.0.0')
+app.debug = True
+# app.run(host='0.0.0.0')
 
 def ocr(data):
     with open("UploadFiles/ss.jpeg", "wb") as fh:
@@ -32,7 +32,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('register.html')
+    return render_template('index.html')
 
 @app.route('/ocr', methods=['POST'])
 def ExtractTextFromOcr():
@@ -42,5 +42,4 @@ def ExtractTextFromOcr():
     return result
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    app.run(host='0.0.0.0')
