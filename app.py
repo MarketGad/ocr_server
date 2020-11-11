@@ -6,6 +6,7 @@ import os
 import io
 import sys
 import json
+import base64
 from base64 import decodestring
 
 UPLOAD_FOLDER = os.getcwd() + "/UploadFiles"
