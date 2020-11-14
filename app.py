@@ -35,6 +35,10 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
+@app.route('/register')
+def index():
+    return render_template('register.html')
+
 @app.route('/ocr', methods=['POST'])
 def ExtractTextFromOcr():
     data = json.loads(request.data)
