@@ -9,6 +9,12 @@ import json
 import base64
 from base64 import decodestring
 
+import utils_ocr.clean_text as clean
+
+# textDummy = "hello world 3423#$%@$ 324#$#2e34ertvfhnf2gr hello world"
+# print("not cleaned : " + textDummy)
+# print("cleaned : " + clean.clean_text(textDummy))
+
 UPLOAD_FOLDER = os.getcwd() + "/UploadFiles"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -35,16 +41,18 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
 @app.route('/ocr', methods=['POST'])
 def ExtractTextFromOcr():
     data = json.loads(request.data)
     result = ocr(data)
-    print(result)
-    return result
+    result = clean.clean_text(result)
+    dist = clean.extract_distance(result)
+    print(dist)    
+    print(result)    
+    if(len(dist) > 0):
+        return dist[0]
+    else:
+        return "Upload a valid Screenshot"
 
 if __name__ == "__main__":
     app.run()
