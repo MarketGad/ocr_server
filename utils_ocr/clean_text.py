@@ -1,8 +1,6 @@
 import re
-from nltk.corpus import stopwords 
 PLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
 BAD_SYMBOLS_RE = re.compile('[^0-9a-z .]')
-STOPWORDS = set(stopwords.words('english'))
 
 
 def clean_text(text):
@@ -10,7 +8,6 @@ def clean_text(text):
     text = text.lower() # lowercase text
     text = PLACE_BY_SPACE_RE.sub(' ', text) # replace REPLACE_BY_SPACE_RE symbols by space in text
     text = BAD_SYMBOLS_RE.sub('', text) # delete symbols which are in BAD_SYMBOLS_RE from text
-    text = ' '.join(word for word in text.split() if word not in STOPWORDS) # delete stopwors from text
     
     return text
     
