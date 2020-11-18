@@ -24,14 +24,19 @@ app = Flask(__name__)
 app.secret_key = "super secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.debug = True
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 8
 # app.run(host='0.0.0.0')
 
 def ocr(data):
     image = Image.open(io.BytesIO(base64.b64decode(data["photo"])))
     image_np = np.array(image)
+    print(": Image conversion Succeeded :")
+
     custom_config = r'--oem 3 --psm 6'
     text = '00 km'
+    print(" Request to OCR ")
     text = pytesseract.image_to_string(image_np, config=custom_config)
+    print(" rResponse from OCR ")
     return text
 
 def allowed_file(filename):
@@ -45,7 +50,10 @@ def index():
 @app.route('/ocr', methods=['POST'])
 def ExtractTextFromOcr():
     data = json.loads(request.data)
+    print(": Request received :")
     result = ocr(data)
+    print(": OCR Response received :")
+
     result = clean.clean_text(result)
     dist = clean.extract_distance(result)
     print(dist)    
