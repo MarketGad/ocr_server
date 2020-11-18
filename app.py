@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.secret_key = "super secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.debug = True
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 8
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 2
 # app.run(host='0.0.0.0')
 
 def ocr(data):
@@ -35,8 +35,13 @@ def ocr(data):
     custom_config = r'--oem 3 --psm 6'
     text = '00 km'
     print(" Request to OCR ")
-    text = pytesseract.image_to_string(image_np, config=custom_config)
-    print(" rResponse from OCR ")
+    try:
+        text = pytesseract.image_to_string(image_np, config=custom_config)
+    
+    except:
+        print(" tesseract returned error ")
+
+    print(" Response from OCR ")
     return text
 
 def allowed_file(filename):
