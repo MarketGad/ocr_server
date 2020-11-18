@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, make_response,flash, redirect, url_for, send_from_directory, session
+from flask import Flask, render_template,request, make_response,flash, redirect, url_for, send_from_directory, session, Response
 import cv2 
 import pytesseract
 from werkzeug.utils import secure_filename
@@ -7,8 +7,9 @@ import io
 import sys
 import json
 import base64
+import numpy as np
 from base64 import decodestring
-
+from PIL import Image
 import utils_ocr.clean_text as clean
 
 # textDummy = "hello world 3423#$%@$ 324#$#2e34ertvfhnf2gr hello world"
@@ -26,11 +27,11 @@ app.debug = True
 # app.run(host='0.0.0.0')
 
 def ocr(data):
-    with open("UploadFiles/ss.jpeg", "wb") as fh:
-        fh.write(base64.b64decode(data["photo"]))
-    img = cv2.imread("UploadFiles/ss.jpeg")
+    image = Image.open(io.BytesIO(base64.b64decode(data["photo"])))
+    image_np = np.array(image)
     custom_config = r'--oem 3 --psm 6'
-    text = pytesseract.image_to_string(img, config=custom_config)
+    text = '00 km'
+    text = pytesseract.image_to_string(image_np, config=custom_config)
     return text
 
 def allowed_file(filename):
@@ -50,9 +51,9 @@ def ExtractTextFromOcr():
     print(dist)    
     print(result)    
     if(len(dist) > 0):
-        return dist[0]
+        return Response(dist[0], status=200 , mimetype='application/text')
     else:
-        return "Upload a valid Screenshot"
+        return Response("Upload a valid Screenshot", status=413 ,mimetype='application/json')
 
 if __name__ == "__main__":
     app.run()
