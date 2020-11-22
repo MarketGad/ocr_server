@@ -36,7 +36,7 @@ def ocr(data):
     text = '00 km'
     print(" Request to OCR ")
     try:
-        text = pytesseract.image_to_string(image_np, config=custom_config, timeout=20)
+        text = pytesseract.image_to_string(image_np, config=custom_config)
     
     except:
         print(" tesseract returned error ")
@@ -67,6 +67,8 @@ def ExtractTextFromOcr():
         return Response(dist[0], status=200 , mimetype='application/text')
     else:
         return Response("Upload a valid Screenshot", status=413 ,mimetype='application/json')
+
+
 
 if __name__ == "__main__":
     app.run()
