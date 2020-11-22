@@ -32,8 +32,7 @@ def ocr(data):
     image_np = np.array(image)
     print(": Image conversion Succeeded :")
 
-    custom_config = r'--psm 6'
-    # custom_config = r'--oem 3 --psm 6'
+    custom_config = r'--oem 3 --psm 6'
     text = '00 km'
     print(" Request to OCR ")
     try:
