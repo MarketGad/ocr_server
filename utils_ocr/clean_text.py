@@ -15,16 +15,16 @@ def clean_text(text):
 # print( " in clean text file : " + clean_text(textDummy))
 
 def extract_distance(text):
-    RE_KM1 = re.compile(' [0-9][0-9].[0-9][0-9]km')
-    RE_KM2 = re.compile(' [0-9].[0-9][0-9]km')
-    RE_KM3 = re.compile(' [0-9][0-9].[0-9]km')
-    RE_KM4 = re.compile(' [0-9][0-9][0-9]km')
-    RE_KM5 = re.compile(' [0-9][0-9][0-9] km')
-    RE_KM6 = re.compile(' [0-9][0-9].[0-9][0-9] km')
-    RE_KM7 = re.compile(' [0-9] km')
-    RE_KM8 = re.compile(' [0-9]km')
-    RE_KM9 = re.compile(' [0-9][0-9] km')
-    RE_KM10 = re.compile(' [0-9][0-9]km')
+    RE_KM1 = re.compile('[0-9][0-9].[0-9][0-9]km')
+    RE_KM2 = re.compile('[0-9].[0-9][0-9]km')
+    RE_KM3 = re.compile('[0-9][0-9].[0-9]km')
+    RE_KM4 = re.compile('[0-9][0-9][0-9]km')
+    RE_KM5 = re.compile('[0-9][0-9][0-9] km')
+    RE_KM6 = re.compile('[0-9][0-9].[0-9][0-9] km')
+    RE_KM7 = re.compile('[0-9] km')
+    RE_KM8 = re.compile('[0-9]km')
+    RE_KM9 = re.compile('[0-9][0-9] km')
+    RE_KM10 = re.compile('[0-9][0-9]km')
 
     dist = []
     dist += RE_KM1.findall(text) 
