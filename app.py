@@ -36,7 +36,7 @@ def ocr(data):
     text = '00 km'
     print(" Request to OCR ")
     try:
-        text = pytesseract.image_to_string(image_np, config=custom_config)
+        text = pytesseract.image_to_string(image_np, config=custom_config, timeout=20)
     
     except:
         print(" tesseract returned error ")
