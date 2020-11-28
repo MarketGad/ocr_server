@@ -19,13 +19,13 @@ import utils_ocr.clean_text as clean
 UPLOAD_FOLDER = os.getcwd() + "/UploadFiles"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-# CREATE FLASK APP
-app = Flask(__name__)
-app.secret_key = "super secret key"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.debug = True
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 2
-# app.run(host='0.0.0.0')
+# CREATE FLASK application
+application = Flask(__name__)
+application.secret_key = "super secret key"
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+application.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 2
+# application.run(host='0.0.0.0')
 
 def ocr(data):
     image = Image.open(io.BytesIO(base64.b64decode(data["photo"])))
@@ -48,11 +48,11 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/ocr', methods=['POST'])
+@application.route('/ocr', methods=['POST'])
 def ExtractTextFromOcr():
     data = json.loads(request.data)
     print(": Request received :")
@@ -64,11 +64,12 @@ def ExtractTextFromOcr():
     print(dist)    
     print(result)    
     if(len(dist) > 0):
-        return Response(dist[0], status=200 , mimetype='application/text')
+        return Response(dist[0], status=200 , mimetype='applicationlication/text')
     else:
-        return Response("Upload a valid Screenshot", status=413 ,mimetype='application/json')
+        return Response("Upload a valid Screenshot", status=413 ,mimetype='applicationlication/json')
 
 
 
 if __name__ == "__main__":
-    app.run()
+    application.debug = True
+    application.run(ssl_context='adhoc')
