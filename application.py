@@ -72,4 +72,4 @@ def ExtractTextFromOcr():
 
 if __name__ == "__main__":
     application.debug = True
-    application.run(ssl_context='adhoc')
+    application.run(ssl_context=('cert.pem', 'key.pem'))
