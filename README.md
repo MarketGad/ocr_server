@@ -3,7 +3,7 @@
     apt-get install python3-venv    //if you don't have python3-venv
 
     export FLASK_ENV=development
-    export FLASK_APP=app.py
+    export FLASK_APP=application.py
     python3 -m venv venv
     . venv/bin/activate
     pip install -r requirements.txt

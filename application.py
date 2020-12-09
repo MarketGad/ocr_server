@@ -31,7 +31,7 @@ def ocr(data):
     image = Image.open(io.BytesIO(base64.b64decode(data["photo"])))
     image_np = np.array(image)
     print(": Image conversion Succeeded :")
-
+    # print(image)
     custom_config = r'--oem 3 --psm 6'
     text = '00 km'
     print(" Request to OCR ")
@@ -66,7 +66,7 @@ def ExtractTextFromOcr():
     if(len(dist) > 0):
         return Response(dist[0], status=200 , mimetype='applicationlication/text')
     else:
-        return Response("Upload a valid Screenshot", status=413 ,mimetype='applicationlication/json')
+        return Response("Upload a valid Screenshot", status=400 ,mimetype='applicationlication/json')
 
 
 
